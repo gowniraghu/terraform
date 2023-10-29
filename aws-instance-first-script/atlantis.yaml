@@ -1,0 +1,24 @@
+# atlantis.yaml
+
+version: 3
+
+# Specify the repos to work on
+repos:
+  # Configuration for a specific repository
+  - name: gowniraghu/terraform # Replace with your GitHub repository in the format owner/repo
+    # Specify workflows for this repository
+    workflows:
+      # Configuration for a specific workflow
+      - name: my-workflow
+        # Events to trigger this workflow
+        plan:
+          # Trigger the workflow when a pull request is opened or updated
+          - pull_request
+        # Apply the plan after review and approval
+        apply_requirements: [approved]
+        # Set to automatically apply the changes upon approval
+        auto_approve: true
+        # Specify commands to override the default behavior
+        allowed_overrides:
+          plan: []  # Allow the 'plan' command to run
+          apply: [] # Allow the 'apply' command to run
