@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     dir("${ENVIRONMENTS_PATH}") {
-                    sh 'terraform init -upgrade -from-module=hashicorp/aws'
+                    sh 'terraform init -upgrade -backend=true -backend-config="ap-south-1"'
                 }
              }
           }
