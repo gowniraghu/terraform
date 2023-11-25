@@ -18,9 +18,12 @@ pipeline {
 
         stage('Create Terraform Plan for Environment') {
             steps {
-
+                script {
                     sh "cp ${ENVIRONMENTS_PATH}/aws-instance-example.tf aws-instance-example.tf"
-                    sh 'terraform get'
+
+                    // Use the 'terraform' tool configured in Jenkins
+                    def tfCmd = tool 'Terraform_0.14.5"'
+                    sh "${tfCmd} get"
                 }
             }
         }
@@ -28,10 +31,13 @@ pipeline {
         stage('Apply Terraform Plan') {
             steps {
                 script {
-                    sh 'terraform apply -auto-approve'
+                    // Use the 'terraform' tool configured in Jenkins
+                    def tfCmd = tool 'terraform'
+                    sh "${tfCmd} apply -auto-approve"
                 }
             }
         }
+    }
 
     post {
         always {
