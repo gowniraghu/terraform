@@ -23,6 +23,8 @@ pipeline {
             }
 
         stage('Apply terraform plan') {
+            steps{
                     sh "terraform apply"
                 }
             }
+        }
