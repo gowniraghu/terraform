@@ -15,22 +15,25 @@ pipeline {
                 checkout scm
             }
         }
-     stage ('Check Terraform Version') {
-           steps {
+
+        stage('Check Terraform Version') {
+            steps {
                 script {
                     def tfhome = tool name: '1.6.4'
                     env.PATH = "${tfhome}:${env.PATH}"
                 }
-                    sh "terraform --version"
+                sh "terraform --version"
             }
         }
-     stage('Initialize Terraform') {
-          steps {
-               script {
-                   sh 'terraform init'
+
+        stage('Initialize Terraform') {
+            steps {
+                script {
+                    sh 'terraform init'
                 }
             }
         }
+
         stage('Create Terraform Plan for Environment') {
             steps {
                 script {
