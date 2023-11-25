@@ -24,7 +24,13 @@ pipeline {
                     sh "terraform --version"
             }
         }
-
+     stage('Initialize Terraform') {
+          steps {
+               script {
+                   sh 'terraform init'
+                }
+            }
+        }
         stage('Create Terraform Plan for Environment') {
             steps {
                 script {
