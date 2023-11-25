@@ -22,7 +22,7 @@ pipeline {
                     sh "cp ${ENVIRONMENTS_PATH}/aws-instance-example.tf aws-instance-example.tf"
 
                     // Use the 'terraform' tool configured in Jenkins
-                    def tfCmd = tool 'Terraform_0.14.5"'
+                    def tfCmd = tool 'Terraform'
                     sh "${tfCmd} get"
                 }
             }
