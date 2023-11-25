@@ -29,9 +29,11 @@ pipeline {
         stage('Initialize Terraform') {
             steps {
                 script {
-                    sh 'terraform init'
+                    dir("${ENVIRONMENTS_PATH}") {
+                    sh "terraform init"
                 }
-            }
+             }
+          }
         }
 
         stage('Create Terraform Plan for Environment') {
