@@ -19,38 +19,19 @@ pipeline {
         stage('Check Terraform Version') {
             steps {
                 script {
-                    def tfhome = tool name: '1.6.4'
+                    def tfhome = tool name: 'Terraform_0.14.5'
                     env.PATH = "${tfhome}:${env.PATH}"
-                }
-                sh "terraform --version"
-            }
-        }
-
-        stage('Initialize Terraform') {
-            steps {
-                script {
-                    dir("${ENVIRONMENTS_PATH}") {
-                    sh 'terraform init -upgrade -backend=true -backend-config="ap-south-1"'
-                }
-             }
-          }
-        }
-
-        stage('Create Terraform Plan for Environment') {
-            steps {
-                script {
-                    sh "cp ${ENVIRONMENTS_PATH}/aws-instance-example.tf aws-instance-example.tf"
-                    sh "terraform plan"
+                    sh "terraform --version"
                 }
             }
         }
 
-        stage('Apply Terraform Plan') {
+        stage('Terraform Init, Plan, and Apply') {
             steps {
                 script {
-                    // Change to the directory where the Terraform files are located
                     dir("${ENVIRONMENTS_PATH}") {
-                        // Run Terraform apply
+                        sh "terraform init"
+                        sh "terraform plan -out=tfplan"
                         sh "terraform apply -auto-approve tfplan"
                     }
                 }
@@ -60,7 +41,6 @@ pipeline {
 
     post {
         always {
-            // Clean up workspace after the build
             cleanWs()
         }
     }
