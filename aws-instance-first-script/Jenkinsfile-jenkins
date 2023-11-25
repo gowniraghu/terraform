@@ -48,7 +48,7 @@ pipeline {
                     // Change to the directory where the Terraform files are located
                     dir("${ENVIRONMENTS_PATH}") {
                         // Run Terraform apply
-                        sh "terraform apply -input=false tfplan"
+                        sh "terraform apply -auto-approve
                     }
                 }
             }
