@@ -7,6 +7,9 @@ pipeline {
         AWS_DEFAULT_REGION    = 'ap-south-1'
         ENVIRONMENTS_PATH     = "aws-instance-first-script"
     }
+    tools {
+        terraform '0.14.5'
+    }
 
     stages {
         stage('Checkout code') {
@@ -20,24 +23,15 @@ pipeline {
             steps {
                 script {
                     sh "cp ${ENVIRONMENTS_PATH}/aws-instance-example.tf aws-instance-example.tf"
-
-                    // Use the 'terraform' tool configured in Jenkins
-                    def tfCmd = tool 'Terraform'
-                    sh "${tfCmd} get"
                 }
             }
         }
 
         stage('Apply Terraform Plan') {
             steps {
-                script {
-                    // Use the 'terraform' tool configured in Jenkins
-                    def tfCmd = tool 'terraform'
-                    sh "${tfCmd} apply -auto-approve"
                 }
             }
         }
-    }
 
     post {
         always {
