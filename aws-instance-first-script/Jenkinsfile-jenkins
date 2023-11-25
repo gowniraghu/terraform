@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     sh "cp ${ENVIRONMENTS_PATH}/aws-instance-example.tf aws-instance-example.tf"
-                    sh "terraform plan
+                    sh "terraform plan"
                 }
             }
         }
