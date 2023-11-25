@@ -16,7 +16,6 @@ pipeline {
 
         stage('Create Terraform Plan for Environment') {
             steps{
-                ansiColor('xterm') {
                 script{
                         def status = sh(script: "terraform workspace select ${ENV_NAME}", returnStatus: true)
                         if (status !=0 ){
@@ -28,7 +27,6 @@ pipeline {
                     }
                 }
             }
-        }
 
         stage('Apply terraform plan') {
             steps {
